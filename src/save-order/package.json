@@ -5,7 +5,7 @@
   "main": "index.js",
   "comment": "@aws-sdk/* packages are provided by the Node.js Lambda runtime, so they stay in devDependencies to keep the package small. The DAX SDK v3 client is NOT in the runtime and must be bundled, so it is a regular dependency.",
   "dependencies": {
-    "@amazon-dax-sdk/lib-dax": "^1.0.0"
+    "@amazon-dax-sdk/lib-dax": "^3.0.3"
   },
   "devDependencies": {
     "@aws-sdk/client-dynamodb": "^3.600.0",
