@@ -12,7 +12,7 @@ permissions:
   contents: read
 
 env:
-  AWS_REGION: ${{ vars.AWS_REGION || 'us-east-1' }}
+  AWS_REGION: us-east-1
   SAM_STACK_NAME: ${{ vars.SAM_STACK_NAME || 'event-driven-application' }}
 
 jobs:
@@ -39,11 +39,19 @@ jobs:
         with:
           use-installer: true
 
+      - name: Verify deploy role secret is set
+        run: |
+          if [ -z "${{ secrets.AWS_DEPLOY_ROLE_ARN }}" ]; then
+            echo "::error::AWS_DEPLOY_ROLE_ARN secret is not set. Add it in repo Settings > Secrets and variables > Actions."
+            exit 1
+          fi
+
       - name: Configure AWS credentials via OIDC
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: ${{ secrets.AWS_DEPLOY_ROLE_ARN }}
           aws-region: ${{ env.AWS_REGION }}
+          audience: sts.amazonaws.com
 
       - name: SAM build
         run: sam build
