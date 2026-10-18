@@ -1,0 +1,8 @@
+# Keep the Lambda deployment package small: exclude everything that the
+# function does not need at runtime. The AWS SDK is provided by the runtime.
+node_modules/
+*.test.js
+__tests__/
+.eslintrc*
+.prettierrc*
+*.md
